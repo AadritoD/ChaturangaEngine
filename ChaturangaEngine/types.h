@@ -13,12 +13,17 @@ enum LeapRights {
 };
 
 enum PieceType {
-	NO_PIECE, PAWN, ROOK, HORSE, ELEPHANT, ADVISOR, RAJAH
+	HORSE, ELEPHANT, ADVISOR, RAJAH, PAWN, ROOK, NO_PIECE
 };
 
 enum Piece {
+	W_HORSE, W_ELEPHANT, W_ADVISOR, W_RAJAH, W_PAWN, W_ROOK,
+	B_HORSE, B_ELEPHANT, B_ADVISOR, B_RAJAH, B_PAWN, B_ROOK,
 	NO_PIECE,
-	W_PAWN, W_ROOK, W_HORSE, W_ELEPHANT, W_ADVISOR, W_RAJAH,
-	B_PAWN, B_ROOK, B_HORSE, B_ELEPHANT, B_ADVISOR, B_RAJAH
 };
 
+const int SQUARE_NUM = 64;
+const int NORMAL_PIECE_NUM = 4; //pieces that don't slide and not pawns
+using Board = uint64_t;
+
+std::array<std::array<Board, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
