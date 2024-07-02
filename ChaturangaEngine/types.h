@@ -1,0 +1,24 @@
+#pragma once
+
+enum Color {
+	WHITE,
+	BLACK
+};
+
+enum LeapRights {
+	NO_LEAP		= 0b00,
+	WHITE_LEAP	= 0b01,
+	BLACK_LEAP	= 0b10,
+	LEAP		= WHITE_LEAP | BLACK_LEAP
+};
+
+enum PieceType {
+	NO_PIECE, PAWN, ROOK, HORSE, ELEPHANT, ADVISOR, RAJAH
+};
+
+enum Piece {
+	NO_PIECE,
+	W_PAWN, W_ROOK, W_HORSE, W_ELEPHANT, W_ADVISOR, W_RAJAH,
+	B_PAWN, B_ROOK, B_HORSE, B_ELEPHANT, B_ADVISOR, B_RAJAH
+};
+
