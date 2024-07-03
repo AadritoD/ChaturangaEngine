@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 enum Color {
 	WHITE,
 	BLACK
@@ -26,4 +28,4 @@ const int SQUARE_NUM = 64;
 const int NORMAL_PIECE_NUM = 5; //pieces that don't slide
 using Board = uint64_t;
 
-std::array<std::array<Board, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
+std::array<std::array<int, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;

@@ -115,7 +115,42 @@ inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& posi
 	}
 }
 
+inline void get_leaps(std::vector<Move>& moves, const Position& position) {
+
+	if (!position.can_leap()) return;
+	Board pieces = position.get_pieces<RAJAH>();
+	Board blockers = position.get_occupied();
+
+	while (pieces) {
+
+		Board from = pop_first(pieces);
+		Board attacks = attacks_table[HORSE][from];
+
+		while (attacks) {
+
+			Board to = pop_first(attacks);
+			if (!static_cast<bool>(blockers & to)) { //not blocked
+				moves.push_back(Move(position, from, to));
+			}
+
+		}
+
+	}
+
+}
+
 inline std::vector<Move> get_pseudolegal_moves(const Position& position) {
+
+	std::vector<Move> moves;
+	get_piece_moves<HORSE>(moves, position);
+	get_piece_moves<ADVISOR>(moves, position);
+	get_piece_moves<ROOK>(moves, position);
+	get_piece_moves<ELEPHANT>(moves, position);
+	get_piece_moves<PAWN>(moves, position);
+	get_piece_moves<RAJAH>(moves, position);
+	get_leaps(moves, position);
+
+	return moves;
 
 }
 
