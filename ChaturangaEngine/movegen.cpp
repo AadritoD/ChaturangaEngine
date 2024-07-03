@@ -14,7 +14,7 @@ template <PieceType piece_t>
 inline void get_piece_moves(std::vector<Move>& moves, const Position& position) {
 
 	Board pieces = position.get_pieces<piece_t>();
-	Board my_pieces = position.get_occupied();
+	Board blockers = position.get_occupied();
 
 	while (pieces) {
 		
@@ -24,7 +24,7 @@ inline void get_piece_moves(std::vector<Move>& moves, const Position& position) 
 		while (attacks) {
 
 			Board to = pop_first(attacks);
-			if (!static_cast<bool>(my_pieces & to)) { //not blocked
+			if (!static_cast<bool>(blockers & to)) { //not blocked
 				moves.push_back(Move(position, from, to));
 			}
 
@@ -36,6 +36,37 @@ inline void get_piece_moves(std::vector<Move>& moves, const Position& position) 
 
 template <>
 inline void get_piece_moves<PAWN>(std::vector<Move>& moves, const Position& position) {
+
+	Board pawns = position.get_pieces<PAWN>();
+	Board captures = position.get_opponent_occupied();
+	Board blockers = position.get_occupied() | captures;
+
+	while (pawns) {
+
+		Board pawn = pop_first(pawns);
+		Board move = pawn;
+		
+		if (position.side_to_move() == WHITE) {
+			move <<= 8;
+		} else {
+			move >>= 8;
+		}
+
+		if (!static_cast<bool>(blockers & move)) { //not blocked
+			moves.push_back(Move(position, pawn, move));
+		}
+
+		Board capture = move << 1;
+		if (static_cast<bool>(capture & captures)) { //can capture left 
+			moves.push_back(Move(position, pawn, capture));
+		}
+
+		capture = move >> 1;
+		if (static_cast<bool>(capture & captures)) { //can capture right 
+			moves.push_back(Move(position, pawn, capture));
+		}
+
+	}
 
 }
 
