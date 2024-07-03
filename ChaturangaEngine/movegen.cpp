@@ -72,7 +72,47 @@ inline void get_piece_moves<PAWN>(std::vector<Move>& moves, const Position& posi
 
 template <>
 inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& position) {
+	Board rooks = position.get_pieces<PAWN>();
+	Board captures = position.get_opponent_occupied();
+	Board blockers = position.get_occupied();
 
+	while (rooks) {
+
+		Board rook = pop_first(rooks);
+
+		for (Board move = rook << 8; move; move <<= 8) {
+
+			if (static_cast<bool>(blockers & move)) break;
+			moves.push_back(Move(position, rook, move));
+			if (static_cast<bool>(captures & move)) break;
+
+		}
+
+		for (Board move = rook >> 8; move; move >>= 8) {
+
+			if (static_cast<bool>(blockers & move)) break;
+			moves.push_back(Move(position, rook, move));
+			if (static_cast<bool>(captures & move)) break;
+
+		}
+
+		for (Board move = rook << 1; move != (rook << 8); move <<= 1) {
+
+			if (static_cast<bool>(blockers & move)) break;
+			moves.push_back(Move(position, rook, move));
+			if (static_cast<bool>(captures & move)) break;
+
+		}
+
+		for (Board move = rook >> 1; move != (rook >> 8); move >>= 1) {
+
+			if (static_cast<bool>(blockers & move)) break;
+			moves.push_back(Move(position, rook, move));
+			if (static_cast<bool>(captures & move)) break;
+
+		}
+
+	}
 }
 
 inline std::vector<Move> get_pseudolegal_moves(const Position& position) {
