@@ -23,7 +23,7 @@ enum Piece {
 };
 
 const int SQUARE_NUM = 64;
-const int NORMAL_PIECE_NUM = 4; //pieces that don't slide and not pawns
+const int NORMAL_PIECE_NUM = 5; //pieces that don't slide
 using Board = uint64_t;
 
 std::array<std::array<Board, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
