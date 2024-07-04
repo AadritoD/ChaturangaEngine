@@ -6,6 +6,10 @@
 #include "position.hpp"
 #include "move.hpp"
 
+inline int find_first(const Board& board) {
+
+}
+
 Board pop_first(Board& pieces) {
 
 }
@@ -19,7 +23,7 @@ inline void get_piece_moves(std::vector<Move>& moves, const Position& position) 
 	while (pieces) {
 		
 		Board from = pop_first(pieces);
-		Board attacks = attacks_table[piece_t][from];
+		Board attacks = attacks_table[piece_t][find_first(from)];
 
 		while (attacks) {
 
@@ -57,12 +61,12 @@ inline void get_piece_moves<PAWN>(std::vector<Move>& moves, const Position& posi
 		}
 
 		Board capture = move << 1;
-		if (static_cast<bool>(capture & captures)) { //can capture left 
+		if (!static_cast<bool>(move & A_FILE) && static_cast<bool>(capture & captures)) { //can capture left 
 			moves.push_back(Move(position, pawn, capture));
 		}
 
 		capture = move >> 1;
-		if (static_cast<bool>(capture & captures)) { //can capture right 
+		if (!static_cast<bool>(move & H_FILE) && static_cast<bool>(capture & captures)) { //can capture right 
 			moves.push_back(Move(position, pawn, capture));
 		}
 
@@ -124,7 +128,7 @@ inline void get_leaps(std::vector<Move>& moves, const Position& position) {
 	while (pieces) {
 
 		Board from = pop_first(pieces);
-		Board attacks = attacks_table[HORSE][from];
+		Board attacks = attacks_table[HORSE][find_first(from)];
 
 		while (attacks) {
 
