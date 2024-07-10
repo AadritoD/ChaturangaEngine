@@ -1,16 +1,42 @@
 #pragma once
 
+#include <array>
+#include "types.h"
+#include "move.hpp"
+
 class Position {
 public:
 
-	inline Color side_to_move() const;
-	inline Board get_pinned() const;
-	inline bool in_check() const;
-	inline bool is_legal(const Move&) const;
-	inline bool can_leap() const;
-	inline Board get_occupied() const;
-	inline Board get_opponent_occupied() const ;
-	template <PieceType> Board get_pieces() const;
+	inline Color side_to_move() const {
+		return turn;
+	}
+
+	inline bool can_leap() const {
+		if (turn == WHITE) {
+			return leap_rights & WHITE_LEAP;
+		}
+		else {
+			return leap_rights & BLACK_LEAP;
+		}
+	}
+
+	inline Board get_occupied() const {
+		return ALL_PIECES[turn];
+	}
+
+	inline Board get_opponent_occupied() const {
+		return ALL_PIECES[1 - turn];
+	}
+
+	template <PieceType> inline Board get_pieces() const {
+		return PIECE_TYPES[PieceType] & ALL_PIECES[turn];
+	}
 	
+private:
+
+	LeapRights leap_rights;
+	std::array<Board, COLOR_NUM> ALL_PIECES;
+	std::array<Board, PIECE_NUM> PIECE_TYPES;
+	Color turn;
 
 };

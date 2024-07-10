@@ -8,18 +8,6 @@
 #include "position.hpp"
 #include "move.hpp"
 
-inline int find_first(const Board& board) {
-	assert(board, "find_first called on empty board");
-	return std::countr_zero(board); //counts number of consecutive zeros from lsb
-}
-
-//pops lsb
-Board pop_first(Board& board) {
-	Board popped = board & (board - 1);
-	std::swap(board, popped);
-	return (board ^ popped);
-}
-
 template <PieceType piece_t>
 inline void get_piece_moves(std::vector<Move>& moves, const Position& position) {
 
@@ -63,17 +51,17 @@ inline void get_piece_moves<PAWN>(std::vector<Move>& moves, const Position& posi
 		}
 
 		if (!static_cast<bool>(blockers & move)) { //not blocked
-			moves.push_back(Move(position, pawn, move));
+			moves.push_back(Move(pawn, move));
 		}
 
 		Board capture = move << 1;
 		if (!static_cast<bool>(move & A_FILE) && static_cast<bool>(capture & captures)) { //can capture left 
-			moves.push_back(Move(position, pawn, capture));
+			moves.push_back(Move(pawn, capture));
 		}
 
 		capture = move >> 1;
 		if (!static_cast<bool>(move & H_FILE) && static_cast<bool>(capture & captures)) { //can capture right 
-			moves.push_back(Move(position, pawn, capture));
+			moves.push_back(Move(pawn, capture));
 		}
 
 	}
@@ -93,7 +81,7 @@ inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& posi
 		for (Board move = rook << 8; move; move <<= 8) {
 
 			if (static_cast<bool>(blockers & move)) break;
-			moves.push_back(Move(position, rook, move));
+			moves.push_back(Move(rook, move));
 			if (static_cast<bool>(captures & move)) break;
 
 		}
@@ -101,7 +89,7 @@ inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& posi
 		for (Board move = rook >> 8; move; move >>= 8) {
 
 			if (static_cast<bool>(blockers & move)) break;
-			moves.push_back(Move(position, rook, move));
+			moves.push_back(Move(rook, move));
 			if (static_cast<bool>(captures & move)) break;
 
 		}
@@ -109,7 +97,7 @@ inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& posi
 		for (Board move = rook << 1; move != (rook << 8); move <<= 1) {
 
 			if (static_cast<bool>(blockers & move)) break;
-			moves.push_back(Move(position, rook, move));
+			moves.push_back(Move(rook, move));
 			if (static_cast<bool>(captures & move)) break;
 
 		}
@@ -117,7 +105,7 @@ inline void get_piece_moves<ROOK>(std::vector<Move>& moves, const Position& posi
 		for (Board move = rook >> 1; move != (rook >> 8); move >>= 1) {
 
 			if (static_cast<bool>(blockers & move)) break;
-			moves.push_back(Move(position, rook, move));
+			moves.push_back(Move(rook, move));
 			if (static_cast<bool>(captures & move)) break;
 
 		}
@@ -140,7 +128,7 @@ inline void get_leaps(std::vector<Move>& moves, const Position& position) {
 
 			Board to = pop_first(attacks);
 			if (!static_cast<bool>(blockers & to)) { //not blocked
-				moves.push_back(Move(position, from, to));
+				moves.push_back(Move(from, to));
 			}
 
 		}
@@ -149,7 +137,7 @@ inline void get_leaps(std::vector<Move>& moves, const Position& position) {
 
 }
 
-inline std::vector<Move> get_pseudolegal_moves(const Position& position) {
+inline std::vector<Move> get_moves(const Position& position) {
 
 	std::vector<Move> moves;
 	get_piece_moves<HORSE>(moves, position);
@@ -161,22 +149,5 @@ inline std::vector<Move> get_pseudolegal_moves(const Position& position) {
 	get_leaps(moves, position);
 
 	return moves;
-
-}
-
-inline std::vector<Move> get_legal_moves(const Position& position) {
-
-	std::vector<Move> all_moves;
-
-	all_moves = get_pseudolegal_moves(position);
-
-	for (Move& move : all_moves) {
-		if (!position.is_legal(move)) {
-			std::swap(move, all_moves.back());
-			all_moves.pop_back();
-		}
-	}
-
-	return all_moves;
 
 }

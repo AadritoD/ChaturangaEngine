@@ -1,6 +1,9 @@
 #pragma once
 
 #include <array>
+#include <cassert>
+#include <bit>
+#include <utility>
 
 enum Color {
 	WHITE,
@@ -15,7 +18,7 @@ enum LeapRights {
 };
 
 enum PieceType {
-	HORSE, ELEPHANT, ADVISOR, RAJAH, PAWN, ROOK, NO_PIECE
+	HORSE = 0, ELEPHANT, ADVISOR, RAJAH, PAWN, ROOK, NO_PIECE
 };
 
 enum Piece {
@@ -24,7 +27,9 @@ enum Piece {
 	NO_PIECE,
 };
 
+const int COLOR_NUM = 2;
 const int SQUARE_NUM = 64;
+const int PIECE_NUM = 6;
 const int NORMAL_PIECE_NUM = 5; //pieces that don't slide
 using Board = uint64_t;
 
@@ -40,3 +45,15 @@ enum Files {
 	B_FILE =	0x4040404040404040,
 	A_FILE =	0x8080808080808080
 };
+
+inline int find_first(const Board& board) {
+	assert(board, "find_first called on empty board");
+	return std::countr_zero(board); //counts number of consecutive zeros from lsb
+}
+
+//pops lsb
+Board pop_first(Board& board) {
+	Board popped = board & (board - 1);
+	std::swap(board, popped);
+	return (board ^ popped);
+}

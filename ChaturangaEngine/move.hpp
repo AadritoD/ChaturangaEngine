@@ -3,7 +3,10 @@
 #include "types.h"
 #include "position.hpp"
 
-class Move {
-public:
-	Move(const Position& position, Board from, Board to);
+struct Move {
+
+	Move(Board from, Board to) : from(from), to(to) {}
+
+	Board from;
+	Board to;
 };
