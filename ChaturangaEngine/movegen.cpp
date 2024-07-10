@@ -1,17 +1,23 @@
 #pragma once
 
 #include <vector>
+#include <bit>
+#include <cassert>
 
 #include "types.h"
 #include "position.hpp"
 #include "move.hpp"
 
 inline int find_first(const Board& board) {
-
+	assert(board, "find_first called on empty board");
+	return std::countr_zero(board); //counts number of consecutive zeros from lsb
 }
 
-Board pop_first(Board& pieces) {
-
+//pops lsb
+Board pop_first(Board& board) {
+	Board popped = board & (board - 1);
+	std::swap(board, popped);
+	return (board ^ popped);
 }
 
 template <PieceType piece_t>
