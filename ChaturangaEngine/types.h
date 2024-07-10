@@ -46,6 +46,17 @@ enum Files {
 	A_FILE =	0x8080808080808080
 };
 
+enum Ranks {
+	RANK_1 = 0x00000000000000FF,
+	RANK_2 = 0x000000000000FF00,
+	RANK_3 = 0x0000000000FF0000,
+	RANK_4 = 0x00000000FF000000,
+	RANK_5 = 0x000000FF00000000,
+	RANK_6 = 0x0000FF0000000000,
+	RANK_7 = 0x00FF000000000000,
+	RANK_8 = 0xFF00000000000000
+};
+
 inline int find_first(const Board& board) {
 	assert(board, "find_first called on empty board");
 	return std::countr_zero(board); //counts number of consecutive zeros from lsb

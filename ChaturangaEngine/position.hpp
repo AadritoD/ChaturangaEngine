@@ -31,8 +31,12 @@ public:
 	template <PieceType> inline Board get_pieces() const {
 		return PIECE_TYPES[PieceType] & ALL_PIECES[turn];
 	}
+
+	void make_move(const Move& move);
 	
 private:
+
+	void promote(const Move& move);
 
 	LeapRights leap_rights;
 	std::array<Board, COLOR_NUM> ALL_PIECES;
