@@ -42,3 +42,6 @@
 *.idb
 *.log
 *.ilk
+
+tests/*
+!tests/*.cpp

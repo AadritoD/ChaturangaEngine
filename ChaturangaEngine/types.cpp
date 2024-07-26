@@ -1,6 +1,7 @@
 #include "types.h"
+#include <iostream>
 
-std::array<std::array<int, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
+std::array<std::array<Board, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
 
 template <>
 void init_moves<HORSE>() {
@@ -19,9 +20,6 @@ void init_moves<HORSE>() {
 				res |= (up << (2 * HORIZONTAL)) | (up >> (2 * HORIZONTAL));
 			}
 			up <<= VERTICAL;
-			if (up == 0) {
-				break;
-			}
 			if (up & H_FILE) {
 				res |= up << HORIZONTAL;
 			}
@@ -44,9 +42,6 @@ void init_moves<HORSE>() {
 				res |= (down << (2 * HORIZONTAL)) | (down >> (2 * HORIZONTAL));
 			}
 			down >>= VERTICAL;
-			if (down == 0) {
-				break;
-			}
 			if (down & H_FILE) {
 				res |= down << HORIZONTAL;
 			}
@@ -63,47 +58,41 @@ void init_moves<HORSE>() {
 }
 
 template <>
-void init_moves<ELEPHANT>() {
+void init_moves<ADVISOR>() {
 	for (int start = 0; start < SQUARE_NUM; start++) {
-		Board res = 0;
+		Board res = 0LL;
 		Board pos = 1LL << start;
 
-		Board up = pos;
-		Board down = pos;
-		while (!static_cast<bool>(up & H_FILE) && (static_cast<bool>(up) || static_cast<bool>(down))) {
-			up >>= HORIZONTAL;
-			down >>= HORIZONTAL;
-			up <<= VERTICAL;
-			down >>= VERTICAL;
-			if (up) {
-				res |= up;
+		if (Board up = pos << VERTICAL; up) {
+			if (up & H_FILE) {
+				res |= up << HORIZONTAL;
 			}
-			if (down) {
-				res |= down;
+			else if (up & A_FILE) {
+				res |= up >> HORIZONTAL;
+			}
+			else {
+				res |= (up << HORIZONTAL) | (up >> HORIZONTAL);
 			}
 		}
 
-		up = pos;
-		down = pos;
-		while (!static_cast<bool>(up & A_FILE) && (static_cast<bool>(up) || static_cast<bool>(down))) {
-			up <<= HORIZONTAL;
-			down <<= HORIZONTAL;
-			up <<= VERTICAL;
-			down >>= VERTICAL;
-			if (up) {
-				res |= up;
+		if (Board down = pos >> VERTICAL; down) {
+			if (down & H_FILE) {
+				res |= down << HORIZONTAL;
 			}
-			if (down) {
-				res |= down;
+			else if (down & A_FILE) {
+				res |= down >> HORIZONTAL;
+			}
+			else {
+				res |= (down << HORIZONTAL) | (down >> HORIZONTAL);
 			}
 		}
 
-		attacks_table[ELEPHANT][start] = res;
+		attacks_table[ADVISOR][start] = res;
 	}
 }
 
 template <>
-void init_moves<ADVISOR>() {
+void init_moves<ELEPHANT>() {
 	for (int start = 0; start < SQUARE_NUM; start++) {
 		Board res = 0LL;
 		Board pos = 1LL << start;
@@ -132,7 +121,7 @@ void init_moves<ADVISOR>() {
 			}
 		}
 
-		attacks_table[ADVISOR][start] = res;
+		attacks_table[ELEPHANT][start] = res;
 	}
 }
 

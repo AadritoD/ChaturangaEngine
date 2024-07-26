@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <array>
 #include <cassert>
 #include <bit>
@@ -42,29 +43,25 @@ const int HORIZONTAL = 1;
 const int VERTICAL = 8;
 using Board = uint64_t;
 
-extern std::array<std::array<int, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
+extern std::array<std::array<Board, SQUARE_NUM>, NORMAL_PIECE_NUM> attacks_table;
 
-enum Files {
-	H_FILE =	0x0101010101010101LL,
-	G_FILE =	0x0202020202020202LL,
-	F_FILE =	0x0404040404040404LL,
-	E_FILE =	0x0808080808080808LL,
-	D_FILE =	0x1010101010101010LL,
-	C_FILE =	0x2020202020202020LL,
-	B_FILE =	0x4040404040404040LL,
-	A_FILE =	0x8080808080808080LL
-};
+const Board H_FILE = 0x0101010101010101LL;
+const Board G_FILE = 0x0202020202020202LL;
+const Board F_FILE = 0x0404040404040404LL;
+const Board E_FILE = 0x0808080808080808LL;
+const Board D_FILE = 0x1010101010101010LL;
+const Board C_FILE = 0x2020202020202020LL;
+const Board B_FILE = 0x4040404040404040LL;
+const Board A_FILE = 0x8080808080808080LL;
 
-enum Ranks {
-	RANK_1 = 0x00000000000000FFLL,
-	RANK_2 = 0x000000000000FF00LL,
-	RANK_3 = 0x0000000000FF0000LL,
-	RANK_4 = 0x00000000FF000000LL,
-	RANK_5 = 0x000000FF00000000LL,
-	RANK_6 = 0x0000FF0000000000LL,
-	RANK_7 = 0x00FF000000000000LL,
-	RANK_8 = 0xFF00000000000000LL
-};
+const Board RANK_1 = 0x00000000000000FFLL;
+const Board RANK_2 = 0x000000000000FF00LL;
+const Board RANK_3 = 0x0000000000FF0000LL;
+const Board RANK_4 = 0x00000000FF000000LL;
+const Board RANK_5 = 0x000000FF00000000LL;
+const Board RANK_6 = 0x0000FF0000000000LL;
+const Board RANK_7 = 0x00FF000000000000LL;
+const Board RANK_8 = 0xFF00000000000000LL;
 
 const std::string DEFAULT = "rhekaehrpppppppp32PPPPPPPPRHEAKEHR Ll T";
 
@@ -78,6 +75,20 @@ inline Board pop_first(Board& board) {
 	Board popped = board & (board - 1);
 	std::swap(board, popped);
 	return (board ^ popped);
+}
+
+inline void print_board(Board board, std::ostream& out = std::cout) {
+	for (int i = 63; i >= 0; i--) {
+		if ((1LL << i) & board) {
+			out << 1;
+		}
+		else {
+			out << 0;
+		}
+		if ((i % 8) == 0) {
+			out << '\n';
+		}
+	}
 }
 
 template <PieceType> void init_moves();

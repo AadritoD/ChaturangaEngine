@@ -1,41 +1,5 @@
-﻿  ChaturangaEngine.cpp
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(48,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(49,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(50,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(51,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(52,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(53,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(54,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(55,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(63,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(64,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(65,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(66,2): warning C4309: 'initializing': truncation of constant value
-  (compiling source file 'ChaturangaEngine.cpp')
-  
-D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(72,2): warning C4002: too many arguments for function-like macro invocation 'assert'
-  (compiling source file 'ChaturangaEngine.cpp')
+﻿  types.cpp
+D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(69,2): warning C4002: too many arguments for function-like macro invocation 'assert'
+  (compiling source file 'types.cpp')
   
   ChaturangaEngine.vcxproj -> D:\Repositories\ChaturangaEngine\x64\Debug\ChaturangaEngine.exe
