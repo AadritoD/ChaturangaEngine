@@ -23,7 +23,7 @@ inline void get_piece_moves(std::vector<Move>& moves, const Position& position) 
 
 			Board to = pop_first(attacks);
 			if (!static_cast<bool>(blockers & to)) { //not blocked
-				moves.push_back(Move(position, from, to));
+				moves.push_back(Move(from, to));
 			}
 
 		}

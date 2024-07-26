@@ -17,13 +17,13 @@ public:
 		return Move(from, to);
 	}
 
-	std::string stringify(Move move) {
+	std::string stringify(Move move) const {
 		int pos1 = find_first(pop_first(move.from));
 		int pos2 = find_first(pop_first(move.to));
 		auto get_square = [](int pos) -> std::string {
 			int x = 7 - (pos % 8);
 			int y = (pos / 8) + 1;
-			return std::to_string(y) + FILES[x];
+			return FILES[x] + std::to_string(y);
 		};
 		return get_square(pos1) + get_square(pos2);
 	}
@@ -49,8 +49,8 @@ public:
 		return ALL_PIECES[1 - turn];
 	}
 
-	template <PieceType> inline Board get_pieces() const {
-		return PIECE_TYPES[PieceType] & ALL_PIECES[turn];
+	template <PieceType piece_t> inline Board get_pieces() const {
+		return PIECE_TYPES[piece_t] & ALL_PIECES[turn];
 	}
 
 	bool status() {

@@ -51,9 +51,17 @@ void Position::make_move(const Move& move) {
 			break;
 		}
 	}
+	if (turn == WHITE) {
+		turn = BLACK;
+	}
+	else {
+		turn = WHITE;
+	}
 }
 
-Position::Position(const std::string& fen) {
+Position::Position(const std::string& fen)
+	: ALL_PIECES(), PIECE_TYPES(), FIFTY_MOVE_RULE(0), board_status(ONGOING), leap_rights(NO_LEAP), turn(WHITE)
+{
 	int skip = 0;
 	Board pos = 1LL << 63;
 	auto set = [&skip, &pos, this](Color color, PieceType piece_t) {
@@ -109,10 +117,16 @@ Position::Position(const std::string& fen) {
 		case 'L':
 			leap_rights = static_cast<LeapRights>(leap_rights | WHITE_LEAP);
 			break;
+		case 't':
+			turn = BLACK;
+			continue;
+		case 'T':
+			turn = WHITE;
+			continue;
 		default:
 			skip *= 10;
 			skip += (ch - '0');
 		}
 	}
-	assert((pos >> skip) == 0, "invalid fen");
+	assert((pos << skip) == 0, "invalid fen");
 }

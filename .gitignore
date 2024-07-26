@@ -36,3 +36,9 @@
 *.vs
 *.filters
 *.user
+*.tlog
+*.recipe
+*.pdb
+*.idb
+*.log
+*.ilk

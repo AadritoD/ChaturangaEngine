@@ -4,12 +4,13 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 class UCI {
 
 public:
 
-	void loop(const std::string& fen = DEFAULT, bool start = false) {
+	void loop(bool start = false) {
 		if (start) {
 			Move move = engine_move();
 			std::cout << board.stringify(move);
@@ -21,7 +22,7 @@ public:
 			board.make_move(board.parse_move(user_move));
 			if (board.status() != ONGOING) break;
 			Move move = engine_move();
-			std::cout << board.stringify(move);
+			std::cout << board.stringify(move) << std::endl;
 			board.make_move(move);
 		}
 	}
