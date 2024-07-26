@@ -18,8 +18,8 @@ public:
 	}
 
 	std::string stringify(Move move) const {
-		int pos1 = find_first(pop_first(move.from));
-		int pos2 = find_first(pop_first(move.to));
+		int pos1 = find_first(move.from);
+		int pos2 = find_first(move.to);
 		auto get_square = [](int pos) -> std::string {
 			int x = 7 - (pos % 8);
 			int y = (pos / 8) + 1;
