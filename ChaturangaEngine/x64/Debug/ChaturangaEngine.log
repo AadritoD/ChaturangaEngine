@@ -1,5 +1,15 @@
-﻿  types.cpp
+﻿  UCI.cpp
 D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(69,2): warning C4002: too many arguments for function-like macro invocation 'assert'
-  (compiling source file 'types.cpp')
+  (compiling source file 'UCI.cpp')
   
+  movegen.cpp
+D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(69,2): warning C4002: too many arguments for function-like macro invocation 'assert'
+  (compiling source file 'movegen.cpp')
+  
+  position.cpp
+D:\Repositories\ChaturangaEngine\ChaturangaEngine\types.h(69,2): warning C4002: too many arguments for function-like macro invocation 'assert'
+  (compiling source file 'position.cpp')
+  
+D:\Repositories\ChaturangaEngine\ChaturangaEngine\position.cpp(131,2): warning C4002: too many arguments for function-like macro invocation 'assert'
+  Generating Code...
   ChaturangaEngine.vcxproj -> D:\Repositories\ChaturangaEngine\x64\Debug\ChaturangaEngine.exe

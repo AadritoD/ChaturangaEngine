@@ -12,8 +12,8 @@ public:
 	Position(const std::string& fen);
 
 	Move parse_move(const std::string& str_move) {
-		Board from = 1LL << ((str_move[1] - '1') * 8 + ('h' - str_move[0] + 1));
-		Board to = 1LL << ((str_move[3] - '1') * 8 + ('h' - str_move[2] + 1));
+		Board from = 1LL << ((str_move[1] - '1') * 8 + ('h' - str_move[0]));
+		Board to = 1LL << ((str_move[3] - '1') * 8 + ('h' - str_move[2]));
 		return Move(from, to);
 	}
 
@@ -71,6 +71,23 @@ public:
 
 	void make_move(const Move& move);
 	
+	bool operator==(const Position& other) const {
+		if (leap_rights != other.leap_rights) {
+			return false;
+		}
+		for (int color = 0; color < COLOR_NUM; color++) {
+			if (ALL_PIECES[color] != other.ALL_PIECES[color]) {
+				return false;
+			}
+		}
+		for (int piece = 0; piece < PIECE_NUM; piece++) {
+			if (PIECE_TYPES[piece] != other.PIECE_TYPES[piece]) {
+				false;
+			}
+		}
+		return true;
+	}
+
 private:
 
 	void promote(const Move& move);

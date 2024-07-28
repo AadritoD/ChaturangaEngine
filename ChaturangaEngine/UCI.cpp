@@ -1,6 +1,6 @@
 #include "types.h"
 #include "position.hpp"
-#include "movegen.cpp"
+#include "movegen.h"
 #include <string>
 #include <iostream>
 #include <vector>

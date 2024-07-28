@@ -7,6 +7,7 @@
 #include "types.h"
 #include "position.hpp"
 #include "move.hpp"
+#include "movegen.h"
 
 template <PieceType piece_t>
 inline void get_piece_moves(std::vector<Move>& moves, const Position& position) {
@@ -137,7 +138,7 @@ inline void get_leaps(std::vector<Move>& moves, const Position& position) {
 
 }
 
-inline std::vector<Move> get_moves(const Position& position) {
+std::vector<Move> get_moves(const Position& position) {
 
 	std::vector<Move> moves;
 	get_piece_moves<HORSE>(moves, position);
